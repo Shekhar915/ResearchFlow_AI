@@ -1,10 +1,10 @@
 
 from langchain_core.messages import HumanMessage 
-from ResearchFlow.llm.llm import LLM
+from ResearchFlow.llm.model import LLM
 
 from ResearchFlow.state.research_state import Research_state
 
-def analyze_question(state:Research_state):
+def analyze_notes(state:Research_state):
     notes = '\n'.join(
         state['research_notes']
     )
