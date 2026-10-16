@@ -19,11 +19,11 @@ The graph shares a single typed state, `Research_state`
 |------------|---------------------|-------------|-----------------------------------------------------------------|
 | question   | `nodes/question.py` | Implemented | Sets `research_required` (true when the question exceeds 10 words) |
 | analysis   | `nodes/analysis.py` | Implemented | Prompts the LLM to analyze the notes into four sections         |
-| research   | `nodes/research.py` | Planned     | Collect research notes                                          |
+| research   | `nodes/research.py` | Implemented | Collect research notes                                          |
 | tool_call  | `nodes/tool_call.py`| Planned     | Call external tools                                             |
 | evaluation | `nodes/evaluation.py`| Planned    | Check the quality of the analysis                               |
 | human_review | `nodes/human_review.py` | Planned | Optional human approval step                                  |
-| answer     | `nodes/answer.py`   | Planned     | Compose the final answer                                        |
+| answer     | `nodes/answer.py`   | Implemented | Compose the final answer                                        |
 
 The analysis node returns four sections: Main Finding, Important
 Observation, Limitations and Final Conclusion.
