@@ -4,7 +4,7 @@ from ResearchFlow.llm.model import LLM
 from ResearchFlow.state.research_state import Research_state
 
 
-def gather_research(state: Research_state):
+def research_question(state: Research_state):
     prompt = f"""
 You are a research assistant. Collect concise, factual research notes for the question inside the <question> tags.
 
