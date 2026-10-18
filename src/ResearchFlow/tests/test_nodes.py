@@ -10,15 +10,28 @@ def test_long_question_needs_research():
     assert analyze_question({'question': q}) == {'research_required': True}
 
 
-def test_answer_uses_analysis_when_present():
-    from ResearchFlow.nodes.answer import build_answer
+class _FakeLLM:
+    def invoke(self, messages):
+        class _Response:
+            content = "final answer"
+        return _Response()
 
-    result = build_answer({'question': 'q', 'analysis': 'detailed analysis'})
-    assert result == {'final_answer': 'detailed analysis'}
+
+def test_answer_uses_llm_output(monkeypatch):
+    from ResearchFlow.nodes import answer
+
+    monkeypatch.setattr(answer, 'LLM', _FakeLLM())
+    result = answer.generate_answer({
+        'question': 'q',
+        'research_notes': ['note'],
+        'analysis': 'analysis',
+    })
+    assert result == {'final_answer': 'final answer'}
 
 
-def test_answer_falls_back_without_analysis():
-    from ResearchFlow.nodes.answer import build_answer
+def test_answer_handles_skipped_research(monkeypatch):
+    from ResearchFlow.nodes import answer
 
-    result = build_answer({'question': 'What is LangGraph?'})
-    assert 'What is LangGraph?' in result['final_answer']
+    monkeypatch.setattr(answer, 'LLM', _FakeLLM())
+    result = answer.generate_answer({'question': 'What is LangGraph?'})
+    assert result == {'final_answer': 'final answer'}
