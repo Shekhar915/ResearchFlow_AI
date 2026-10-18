@@ -20,8 +20,8 @@ from ResearchFlow.state.research_state import Research_state
 
 def generate_answer(state: Research_state):
    question = state['question']
-   notes = "\n".join(state['research_notes'])
-   analysis = state['analysis']
+   notes = "\n".join(state.get('research_notes', []))
+   analysis = state.get('analysis', '')
 
    prompt = f"""
         You are a helpful research assistant.
