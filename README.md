@@ -3,11 +3,11 @@
 A LangGraph-based research assistant that takes a question, decides whether
 deeper research is needed, gathers notes, analyzes them with an LLM
 (Google Gemini), and produces a final answer. A Streamlit interface is
-planned as the front end.
+provides the front end.
 
-> Status: work in progress. The state definition, the question-routing node
-> and the analysis node are implemented; the remaining nodes, routers and
-> graphs are scaffolded and will be filled in step by step.
+> Status: work in progress. The core flow (question, research, analysis, answer),
+> routing, service layer and Streamlit UI are implemented; evaluation, human review,
+> and tool-call nodes are still planned.
 
 ## Project structure
 
