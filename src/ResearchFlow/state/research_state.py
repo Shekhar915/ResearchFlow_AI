@@ -7,3 +7,5 @@ class Research_state(TypedDict):
     research_notes : list[str]
     analysis : str
     final_answer : str
+    analysis_complete : bool
+    missing_sections : list[str]
