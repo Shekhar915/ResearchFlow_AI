@@ -21,7 +21,7 @@ The graph shares a single typed state, `Research_state`
 | analysis   | `nodes/analysis.py` | Implemented | Prompts the LLM to analyze the notes into four sections         |
 | research   | `nodes/research.py` | Implemented | Collect research notes                                          |
 | tool_call  | `nodes/tool_call.py`| Planned     | Call external tools                                             |
-| evaluation | `nodes/evaluation.py`| Planned    | Check the quality of the analysis                               |
+| evaluation | `nodes/evaluation.py`| Implemented | Check the quality of the analysis                               |
 | human_review | `nodes/human_review.py` | Planned | Optional human approval step                                  |
 | answer     | `nodes/answer.py`   | Implemented | Compose the final answer                                        |
 
