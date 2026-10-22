@@ -35,3 +35,19 @@ def test_answer_handles_skipped_research(monkeypatch):
     monkeypatch.setattr(answer, 'LLM', _FakeLLM())
     result = answer.generate_answer({'question': 'What is LangGraph?'})
     assert result == {'final_answer': 'final answer'}
+
+
+def test_evaluation_passes_complete_analysis():
+    from ResearchFlow.nodes.evaluation import evaluate_analysis
+
+    text = "Main Finding\nImportant Observation\nLimitations\nFinal Conclusion"
+    result = evaluate_analysis({'analysis': text})
+    assert result == {'analysis_complete': True, 'missing_sections': []}
+
+
+def test_evaluation_reports_missing_sections():
+    from ResearchFlow.nodes.evaluation import evaluate_analysis
+
+    result = evaluate_analysis({'analysis': "Main Finding only"})
+    assert result['analysis_complete'] is False
+    assert 'Limitations' in result['missing_sections']
