@@ -14,6 +14,7 @@ def evaluate_analysis(state: Research_state):
     missing = [name for name in REQUIRED_SECTIONS if name not in analysis]
 
     return {
+        'analysis_attempts': state.get('analysis_attempts', 0) + 1,
         'analysis_complete': not missing,
         'missing_sections': missing,
     }
