@@ -32,7 +32,7 @@ Observation, Limitations and Final Conclusion.
 
 ```
 question -> [research_required?]
-    yes -> research -> analysis -> evaluation -> (human_review) -> answer
+    yes -> research -> analysis -> evaluation -> answer
     no  ----------------------------------------------------------> answer
 ```
 
@@ -43,3 +43,10 @@ Routing decisions live in `routers/`, and the graphs in `graphs/` and
 
 `config/settings.py` loads `.env` and requires `GEMINI_API_KEY`; the app
 fails fast with a clear error when it is missing.
+
+## Evaluation retry loop
+
+After `analysis`, the `evaluation` node checks that all four sections are
+present. `route_after_evaluation` sends the flow back to `analysis` when
+sections are missing, and moves on to `answer` once the analysis is complete
+or `MAX_ANALYSIS_ATTEMPTS` (2) is reached, so the loop always terminates.
