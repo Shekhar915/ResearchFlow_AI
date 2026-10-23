@@ -16,7 +16,7 @@ def _patch_llm(monkeypatch):
 
 def test_graph_compiles_with_expected_nodes():
     nodes = set(rg.research_graph.get_graph().nodes)
-    assert {'analyze_question', 'research', 'analysis', 'answer'} <= nodes
+    assert {'analyze_question', 'research', 'analysis', 'evaluation', 'answer'} <= nodes
 
 
 def test_short_question_skips_research(monkeypatch):
@@ -34,4 +34,5 @@ def test_long_question_runs_full_flow(monkeypatch):
     assert result['research_required'] is True
     assert result['research_notes'] == ['fact one', 'fact two']
     assert result['analysis']
+    assert result['analysis_attempts'] == 2
     assert result['final_answer']

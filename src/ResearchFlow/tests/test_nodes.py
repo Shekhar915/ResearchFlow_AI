@@ -42,7 +42,11 @@ def test_evaluation_passes_complete_analysis():
 
     text = "Main Finding\nImportant Observation\nLimitations\nFinal Conclusion"
     result = evaluate_analysis({'analysis': text})
-    assert result == {'analysis_complete': True, 'missing_sections': []}
+    assert result == {
+        'analysis_attempts': 1,
+        'analysis_complete': True,
+        'missing_sections': [],
+    }
 
 
 def test_evaluation_reports_missing_sections():
