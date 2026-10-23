@@ -9,3 +9,4 @@ class Research_state(TypedDict):
     final_answer : str
     analysis_complete : bool
     missing_sections : list[str]
+    analysis_attempts : int
