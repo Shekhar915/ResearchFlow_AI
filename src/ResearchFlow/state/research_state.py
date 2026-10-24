@@ -10,3 +10,4 @@ class Research_state(TypedDict):
     analysis_complete : bool
     missing_sections : list[str]
     analysis_attempts : int
+    approved : bool
