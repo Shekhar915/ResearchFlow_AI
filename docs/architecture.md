@@ -22,7 +22,7 @@ The graph shares a single typed state, `Research_state`
 | research   | `nodes/research.py` | Implemented | Collect research notes                                          |
 | tool_call  | `nodes/tool_call.py`| Planned     | Call external tools                                             |
 | evaluation | `nodes/evaluation.py`| Implemented | Check the quality of the analysis                               |
-| human_review | `nodes/human_review.py` | Planned | Optional human approval step                                  |
+| human_review | `nodes/human_review.py` | Implemented | Optional human approval step                                  |
 | answer     | `nodes/answer.py`   | Implemented | Compose the final answer                                        |
 
 The analysis node returns four sections: Main Finding, Important
@@ -50,3 +50,12 @@ After `analysis`, the `evaluation` node checks that all four sections are
 present. `route_after_evaluation` sends the flow back to `analysis` when
 sections are missing, and moves on to `answer` once the analysis is complete
 or `MAX_ANALYSIS_ATTEMPTS` (2) is reached, so the loop always terminates.
+
+## Human review graph
+
+`graphs/agent_graph.py` builds a variant of the research flow with an
+approval step. After evaluation passes, `human_review` calls LangGraph's
+`interrupt`, which pauses the run and saves its state in a checkpointer.
+Resuming with `Command(resume=True)` approves the analysis and continues to
+`answer`; `Command(resume=False)` routes back to `analysis` for another pass.
+Each run needs a `thread_id` in its config so the paused state can be found.
