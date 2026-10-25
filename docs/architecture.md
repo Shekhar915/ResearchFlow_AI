@@ -59,3 +59,10 @@ approval step. After evaluation passes, `human_review` calls LangGraph's
 Resuming with `Command(resume=True)` approves the analysis and continues to
 `answer`; `Command(resume=False)` routes back to `analysis` for another pass.
 Each run needs a `thread_id` in its config so the paused state can be found.
+
+## Research subgraph
+
+`subgraphs/research_graph.py` packages `research -> analysis -> evaluation`
+(including the retry loop) as a standalone compiled graph that stops before
+the answer step. It can be reused as a node inside a larger graph, or run on
+its own when only notes and an analysis are needed.
