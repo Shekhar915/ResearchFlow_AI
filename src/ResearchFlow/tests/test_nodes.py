@@ -55,3 +55,24 @@ def test_evaluation_reports_missing_sections():
     result = evaluate_analysis({'analysis': "Main Finding only"})
     assert result['analysis_complete'] is False
     assert 'Limitations' in result['missing_sections']
+
+
+def test_tool_call_adds_matching_tool_notes():
+    from ResearchFlow.nodes.tool_call import call_tools
+
+    result = call_tools({'question': 'How many words are in this sentence?'})
+    assert result['research_notes'] == ['The question has 7 words.']
+
+
+def test_tool_call_keeps_existing_notes_and_skips_unmatched():
+    from ResearchFlow.nodes.tool_call import call_tools
+
+    result = call_tools({'question': 'Explain LangGraph', 'research_notes': ['old']})
+    assert result['research_notes'] == ['old']
+
+
+def test_tool_call_extracts_numbers():
+    from ResearchFlow.nodes.tool_call import call_tools
+
+    result = call_tools({'question': 'List the numbers in 12 apples and 3.5 pears'})
+    assert result['research_notes'] == ['Numbers found: 12, 3.5.']
