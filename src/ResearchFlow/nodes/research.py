@@ -1,6 +1,7 @@
 from langchain_core.messages import HumanMessage
 
 from ResearchFlow.llm.model import LLM
+from ResearchFlow.llm.text import content_to_text
 from ResearchFlow.state.research_state import Research_state
 
 
@@ -17,7 +18,7 @@ Return 3 to 5 notes, one per line, each starting with "- ". No introduction or c
     response = LLM.invoke([HumanMessage(content=prompt)])
     notes = [
         line.lstrip('- ').strip()
-        for line in response.content.splitlines()
+        for line in content_to_text(response.content).splitlines()
         if line.strip()
     ]
 

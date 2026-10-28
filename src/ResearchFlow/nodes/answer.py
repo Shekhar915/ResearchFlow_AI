@@ -15,6 +15,7 @@ from ResearchFlow.state.research_state import Research_state
 
 from langchain_core.messages import HumanMessage
 from ResearchFlow.llm.model import LLM
+from ResearchFlow.llm.text import content_to_text
 
 from ResearchFlow.state.research_state import Research_state
 
@@ -41,5 +42,5 @@ def generate_answer(state: Research_state):
       [HumanMessage(content = prompt)]
    )
    return {
-      "final_answer" : response.content
+      "final_answer" : content_to_text(response.content)
    }

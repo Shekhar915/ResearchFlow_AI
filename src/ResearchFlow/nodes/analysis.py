@@ -1,5 +1,6 @@
 from langchain_core.messages import HumanMessage 
 from ResearchFlow.llm.model import LLM
+from ResearchFlow.llm.text import content_to_text
 
 from ResearchFlow.state.research_state import Research_state
 
@@ -36,5 +37,5 @@ Provide your analysis strictly adhering to the following four sections. Do not i
     )
 
     return {
-        'analysis' : response.content
+        'analysis' : content_to_text(response.content)
     }
