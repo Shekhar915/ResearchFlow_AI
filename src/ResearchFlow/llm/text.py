@@ -17,7 +17,7 @@ def content_to_text(content) -> str:
             for part in content
         )
 
-    text = str(content or '').replace('\r\n', '\n').strip()
+    text = textwrap.dedent(str(content or '').replace('\r\n', '\n')).strip()
 
     fenced = _FENCE.match(text)
     if fenced:
