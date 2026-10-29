@@ -8,7 +8,7 @@ LONG_QUESTION = "Explain in detail how conditional routing works between nodes i
 
 
 class _FakeLLM:
-    def invoke(self, messages):
+    def invoke(self, messages, config=None):
         class _Response:
             content = "Main Finding Important Observation Limitations Final Conclusion"
         return _Response()

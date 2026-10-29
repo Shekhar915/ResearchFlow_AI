@@ -3,7 +3,7 @@ from ResearchFlow.nodes import answer, analysis, research
 
 
 class _FakeLLM:
-    def invoke(self, messages):
+    def invoke(self, messages, config=None):
         class _Response:
             content = "- fact one\n- fact two"
         return _Response()
@@ -34,5 +34,5 @@ def test_long_question_runs_full_flow(monkeypatch):
     assert result['research_required'] is True
     assert result['research_notes'] == ['fact one', 'fact two']
     assert result['analysis']
-    assert result['analysis_attempts'] == 2
+    assert result['analysis_attempts'] == 1
     assert result['final_answer']

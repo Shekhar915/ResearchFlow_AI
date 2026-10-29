@@ -11,7 +11,7 @@ def test_long_question_needs_research():
 
 
 class _FakeLLM:
-    def invoke(self, messages):
+    def invoke(self, messages, config=None):
         class _Response:
             content = "final answer"
         return _Response()
@@ -25,7 +25,7 @@ def test_answer_uses_llm_output(monkeypatch):
         'question': 'q',
         'research_notes': ['note'],
         'analysis': 'analysis',
-    })
+    }, {})
     assert result == {'final_answer': 'final answer'}
 
 
@@ -33,7 +33,7 @@ def test_answer_handles_skipped_research(monkeypatch):
     from ResearchFlow.nodes import answer
 
     monkeypatch.setattr(answer, 'LLM', _FakeLLM())
-    result = answer.generate_answer({'question': 'What is LangGraph?'})
+    result = answer.generate_answer({'question': 'What is LangGraph?'}, {})
     assert result == {'final_answer': 'final answer'}
 
 

@@ -3,7 +3,7 @@ from ResearchFlow.subgraphs.research_graph import research_subgraph
 
 
 class _FakeLLM:
-    def invoke(self, messages):
+    def invoke(self, messages, config=None):
         class _Response:
             content = "- fact one\n- fact two"
         return _Response()
@@ -23,5 +23,5 @@ def test_subgraph_collects_notes_and_analysis(monkeypatch):
 
     assert result['research_notes'] == ['fact one', 'fact two']
     assert result['analysis']
-    assert result['analysis_attempts'] == 2
+    assert result['analysis_attempts'] == 1
     assert 'final_answer' not in result

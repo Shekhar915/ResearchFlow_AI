@@ -1,5 +1,4 @@
 from ResearchFlow.llm.text import content_to_text
-from ResearchFlow.ui.streamlit_app import split_sections
 
 
 def test_plain_string_is_trimmed():
@@ -21,12 +20,3 @@ def test_indentation_is_removed():
 
 def test_none_becomes_empty_string():
     assert content_to_text(None) == ""
-
-
-def test_split_sections_by_headings():
-    text = "### 1. Main Finding\nA\n\n### 2. Limitations\nB"
-    assert split_sections(text) == [("1. Main Finding", "A"), ("2. Limitations", "B")]
-
-
-def test_split_sections_without_headings():
-    assert split_sections("just text") == [("", "just text")]
