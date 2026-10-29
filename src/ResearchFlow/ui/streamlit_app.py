@@ -1,42 +1,42 @@
-import re
-
 import streamlit as st
 
-from ResearchFlow.services.research_service import run_research
+from ResearchFlow.services.research_service import stream_research_events
 
 
-def split_sections(markdown: str) -> list[tuple[str, str]]:
-    """Split markdown on '#' headings into (title, body) pairs."""
-    parts = re.split(r'^#{1,4}\s*(.+?)\s*$', markdown, flags=re.MULTILINE)
-    if len(parts) == 1:
-        return [('', markdown.strip())]
+def show_streamed_answer(question: str):
+    """Show live progress while the graph runs, then stream the answer."""
+    progress = st.status("Researching your question...", expanded=True)
+    progress.write("Started. This can take a little while, please keep this page open.")
 
-    sections = []
-    if parts[0].strip():
-        sections.append(('', parts[0].strip()))
-    for title, body in zip(parts[1::2], parts[2::2]):
-        sections.append((title, body.strip()))
-    return sections
-
-
-def show_answer(answer: str):
     st.subheader("Answer")
-    with st.container(border=True):
-        st.markdown(answer)
+    answer_placeholder = st.empty()
+    collected_answer = ""
 
+    try:
+        for kind, text in stream_research_events(question):
+            if kind == 'status':
+                progress.write(f"✔ {text}")
+            else:
+                if not collected_answer:
+                    progress.update(label="Writing the answer...")
+                collected_answer += text
+                answer_placeholder.markdown(collected_answer + " ▌")
+    except ValueError as e:
+        progress.update(label="Invalid question", state="error")
+        st.warning(str(e))
+        return
+    except Exception as e:
+        progress.update(label="Research failed", state="error")
+        st.error(f"An error occurred during research: {e}")
+        return
 
-def show_notes(notes: list[str]):
-    with st.expander(f"Research notes ({len(notes)})"):
-        for note in notes:
-            st.markdown(f"- {note}")
-
-
-def show_analysis(analysis: str):
-    with st.expander("Analysis", expanded=True):
-        for title, body in split_sections(analysis):
-            if title:
-                st.markdown(f"**{title}**")
-            st.markdown(body)
+    if collected_answer.strip():
+        answer_placeholder.markdown(collected_answer)
+        progress.update(label="Research complete", state="complete", expanded=False)
+    else:
+        answer_placeholder.empty()
+        progress.update(label="No answer generated", state="error")
+        st.warning("No answer generated. Please try again with a different question.")
 
 
 def main():
@@ -44,24 +44,16 @@ def main():
     st.title("ResearchFlow AI")
     st.caption("Ask a question and get a researched, analyzed answer.")
 
-    question = st.text_area("Your question", height=120)
+    question = st.text_area(
+        "Your question", placeholder="For example: what is Python?", height=120
+    )
 
     if st.button("Run research", type="primary"):
         if not question.strip():
             st.warning("Please enter a question first.")
-            return
+        else:
+            show_streamed_answer(question)
 
-        with st.spinner("Researching..."):
-            try:
-                result = run_research(question)
-            except Exception as error:
-                st.error(f"Something went wrong: {error}")
-                return
 
-        show_answer(result.get('final_answer', ''))
-
-        if result.get('research_notes'):
-            show_notes(result['research_notes'])
-
-        if result.get('analysis'):
-            show_analysis(result['analysis'])
+if __name__ == "__main__":
+    main()
