@@ -6,7 +6,7 @@ def route_after_question(state: Research_state) -> str:
     return "research" if state['research_required'] else "answer"
 
 
-MAX_ANALYSIS_ATTEMPTS = 2
+MAX_ANALYSIS_ATTEMPTS = 1
 
 
 def route_after_evaluation(state: Research_state) -> str:
