@@ -14,12 +14,13 @@ from ResearchFlow.state.research_state import Research_state
 #     }
 
 from langchain_core.messages import HumanMessage
+from langchain_core.runnables import RunnableConfig
 from ResearchFlow.llm.model import LLM
 from ResearchFlow.llm.text import content_to_text
 
 from ResearchFlow.state.research_state import Research_state
 
-def generate_answer(state: Research_state):
+def generate_answer(state: Research_state, config: RunnableConfig):
    question = state['question']
    notes = "\n".join(state.get('research_notes', []))
    analysis = state.get('analysis', '')
@@ -39,7 +40,8 @@ def generate_answer(state: Research_state):
 
     """
    response = LLM.invoke(
-      [HumanMessage(content = prompt)]
+      [HumanMessage(content = prompt)],
+      config
    )
    return {
       "final_answer" : content_to_text(response.content)
