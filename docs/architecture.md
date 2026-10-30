@@ -28,7 +28,7 @@ The graph shares a single typed state, `Research_state`
 The analysis node returns four sections: Main Finding, Important
 Observation, Limitations and Final Conclusion.
 
-## Planned flow
+## Flow
 
 ```
 question -> [research_required?]
@@ -49,7 +49,7 @@ fails fast with a clear error when it is missing.
 After `analysis`, the `evaluation` node checks that all four sections are
 present. `route_after_evaluation` sends the flow back to `analysis` when
 sections are missing, and moves on to `answer` once the analysis is complete
-or `MAX_ANALYSIS_ATTEMPTS` (2) is reached, so the loop always terminates.
+or `MAX_ANALYSIS_ATTEMPTS` (1) is reached, so the loop always terminates.
 
 ## Human review graph
 
