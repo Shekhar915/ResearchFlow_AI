@@ -5,6 +5,7 @@ ANSWER_NODES = ('answer', 'generate_answer', 'final_answer')
 NODE_LABELS = {
     'analyze_question': 'Analyzed the question',
     'research': 'Gathered research notes',
+    'tools': 'Ran helper tools',
     'analysis': 'Analyzed the notes',
     'evaluation': 'Evaluated the analysis',
     'human_review': 'Reviewed by a human',
