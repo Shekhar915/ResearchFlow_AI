@@ -32,7 +32,7 @@ Observation, Limitations and Final Conclusion.
 
 ```
 question -> [research_required?]
-    yes -> research -> analysis -> evaluation -> answer
+    yes -> research -> tools -> analysis -> evaluation -> answer
     no  ----------------------------------------------------------> answer
 ```
 

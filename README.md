@@ -7,7 +7,7 @@ provides the front end.
 
 > Status: work in progress. The core flow (question, research, analysis, answer),
 > routing, service layer and Streamlit UI are implemented; tool-call wiring,
-> and agent-style tool routing are still planned.
+> and LLM-driven tool selection are still planned.
 
 ## Project structure
 
