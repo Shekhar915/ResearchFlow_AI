@@ -48,3 +48,14 @@ def test_rejection_loops_back_to_analysis(monkeypatch):
 
     assert '__interrupt__' in paused_again
     assert paused_again['analysis_attempts'] == 2
+
+
+def test_review_graph_includes_tools_step(monkeypatch):
+    _patch_llm(monkeypatch)
+    graph = build_review_graph()
+    assert 'tools' in set(graph.get_graph().nodes)
+
+    question = "How many words are in this long question about routing between graph nodes today"
+    config = {'configurable': {'thread_id': 'tools'}}
+    paused = graph.invoke({'question': question}, config)
+    assert any('words' in note for note in paused['research_notes'])
