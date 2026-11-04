@@ -8,7 +8,7 @@ LLM = ChatGoogleGenerativeAI(
     temperature=0.2,
     # Speed: little reasoning, bounded output, token streaming, no slow retries.
     thinking_level="low",
-    max_output_tokens=1024,
+    max_output_tokens=10024,
     streaming=True,
     max_retries=1,
     timeout=60,
