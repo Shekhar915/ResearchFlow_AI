@@ -1,6 +1,6 @@
 from ResearchFlow.state.research_state import Research_state
 
-RESEARCH_WORD_THRESHOLD = 10
+RESEARCH_WORD_THRESHOLD = 1000
 
 
 def analyze_question(state: Research_state):
