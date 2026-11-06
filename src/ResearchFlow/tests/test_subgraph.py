@@ -11,7 +11,7 @@ class _FakeLLM:
 
 def test_subgraph_has_no_answer_node():
     nodes = set(research_subgraph.get_graph().nodes)
-    assert {'research', 'analysis', 'evaluation'} <= nodes
+    assert {'research', 'tools', 'analysis', 'evaluation'} <= nodes
     assert 'answer' not in nodes
 
 
@@ -25,3 +25,12 @@ def test_subgraph_collects_notes_and_analysis(monkeypatch):
     assert result['analysis']
     assert result['analysis_attempts'] == 1
     assert 'final_answer' not in result
+
+
+def test_subgraph_adds_tool_results_to_notes(monkeypatch):
+    for module in (research, analysis):
+        monkeypatch.setattr(module, 'LLM', _FakeLLM())
+
+    result = research_subgraph.invoke({'question': 'How many words are in this question?'})
+
+    assert any('words' in note for note in result['research_notes'])
