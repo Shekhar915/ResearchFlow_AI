@@ -66,3 +66,19 @@ ResearchFLow_AI/
 - Google Gemini via `langchain-google-genai`
 - Streamlit for the user interface
 - python-dotenv for configuration
+
+## Running the tests
+
+The tests use a fake LLM, so they run offline and need no API key:
+
+```powershell
+python -m pytest -q src/ResearchFlow/tests
+```
+
+## Graph variants
+
+| Graph | File | Flow |
+|-------|------|------|
+| Main | `graphs/research_graph.py` | question -> research -> tools -> analysis -> evaluation -> answer |
+| Review | `graphs/agent_graph.py` | same flow, with a human approval pause before the answer |
+| Subgraph | `subgraphs/research_graph.py` | research -> tools -> analysis -> evaluation (no answer step) |
