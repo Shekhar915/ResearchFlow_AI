@@ -1,4 +1,11 @@
+import logging
+import time
+
 from ResearchFlow.graphs.main_graph import main_graph
+
+logger = logging.getLogger(__name__)
+
+MAX_QUESTION_CHARS = 2000
 
 ANSWER_NODES = ('answer', 'generate_answer', 'final_answer')
 
@@ -14,10 +21,12 @@ NODE_LABELS = {
 
 
 def validate_question(question: str) -> str:
-    """Return the stripped question, or raise ValueError if it is empty."""
+    """Return the stripped question, or raise ValueError if it is invalid."""
     question = question.strip()
     if not question:
         raise ValueError("Question must not be empty.")
+    if len(question) > MAX_QUESTION_CHARS:
+        raise ValueError(f"Question must be at most {MAX_QUESTION_CHARS} characters.")
 
     return question
 
