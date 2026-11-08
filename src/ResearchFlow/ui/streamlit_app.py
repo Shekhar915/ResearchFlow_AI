@@ -1,6 +1,9 @@
 import streamlit as st
 
-from ResearchFlow.services.research_service import stream_research_events
+from ResearchFlow.services.research_service import (
+    MAX_QUESTION_CHARS,
+    stream_research_events,
+)
 
 
 def show_streamed_answer(question: str):
@@ -45,7 +48,10 @@ def main():
     st.caption("Ask a question and get a researched, analyzed answer.")
 
     question = st.text_area(
-        "Your question", placeholder="For example: what is Python?", height=120
+        "Your question",
+        placeholder="For example: what is Python?",
+        height=120,
+        max_chars=MAX_QUESTION_CHARS,
     )
 
     if st.button("Run research", type="primary"):
