@@ -61,6 +61,8 @@ def stream_research_events(question: str):
     answer node's finished output is yielded as one 'token' event instead.
     """
     question = validate_question(question)
+    started = time.perf_counter()
+    logger.info("Research started (%d characters)", len(question))
 
     streamed = False
     fallback = ''
@@ -83,6 +85,8 @@ def stream_research_events(question: str):
 
     if not streamed and fallback:
         yield 'token', fallback
+
+    logger.info("Research finished in %.1fs", time.perf_counter() - started)
 
 
 def stream_research(question: str):
