@@ -82,3 +82,15 @@ python -m pytest -q src/ResearchFlow/tests
 | Main | `graphs/research_graph.py` | question -> research -> tools -> analysis -> evaluation -> answer |
 | Review | `graphs/agent_graph.py` | same flow, with a human approval pause before the answer |
 | Subgraph | `subgraphs/research_graph.py` | research -> tools -> analysis -> evaluation (no answer step) |
+
+## Configuration
+
+| Variable | Required | Purpose |
+|----------|----------|---------|
+| `GEMINI_API_KEY` | Yes | Google Gemini API key; the app stops at startup without it |
+| `LANGSMITH_TRACING` | No | Set to `true` to send traces to LangSmith |
+| `LANGSMITH_API_KEY` | No | LangSmith API key, only needed when tracing is on |
+| `LANGSMITH_PROJECT` | No | LangSmith project name |
+
+Questions are limited to 2000 characters (`MAX_QUESTION_CHARS` in
+`services/research_service.py`).
