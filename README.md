@@ -88,6 +88,7 @@ python -m pytest -q src/ResearchFlow/tests
 | Variable | Required | Purpose |
 |----------|----------|---------|
 | `GEMINI_API_KEY` | Yes | Google Gemini API key; the app stops at startup without it |
+| `LOG_LEVEL` | No | Console log verbosity (default `INFO`) |
 | `LANGSMITH_TRACING` | No | Set to `true` to send traces to LangSmith |
 | `LANGSMITH_API_KEY` | No | LangSmith API key, only needed when tracing is on |
 | `LANGSMITH_PROJECT` | No | LangSmith project name |
