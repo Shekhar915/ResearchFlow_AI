@@ -16,7 +16,7 @@ ResearchFLow_AI/
 ├── app.py                     # Entry point (launches the Streamlit UI)
 ├── requirements.txt
 ├── .env.example               # Template for required environment variables
-├── docs/architecture.md       # Design notes and planned graph flow
+├── docs/                      # Architecture notes and tool guide
 └── src/ResearchFlow/
     ├── config/                # Settings and environment loading
     ├── llm/                   # LLM wrapper
