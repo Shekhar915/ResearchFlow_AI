@@ -76,3 +76,18 @@ def test_tool_call_extracts_numbers():
 
     result = call_tools({'question': 'List the numbers in 12 apples and 3.5 pears'})
     assert result['research_notes'] == ['Numbers found: 12, 3.5.']
+
+
+def test_threshold_is_read_from_environment(monkeypatch):
+    from ResearchFlow.nodes.question import read_threshold
+
+    monkeypatch.setenv("RESEARCH_WORD_THRESHOLD", "5")
+    assert read_threshold() == 5
+
+
+def test_invalid_threshold_falls_back_to_default(monkeypatch):
+    from ResearchFlow.nodes.question import DEFAULT_RESEARCH_WORD_THRESHOLD, read_threshold
+
+    for bad in ("abc", "-3", ""):
+        monkeypatch.setenv("RESEARCH_WORD_THRESHOLD", bad)
+        assert read_threshold() == DEFAULT_RESEARCH_WORD_THRESHOLD
