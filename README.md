@@ -88,6 +88,7 @@ python -m pytest -q src/ResearchFlow/tests
 | Variable | Required | Purpose |
 |----------|----------|---------|
 | `GEMINI_API_KEY` | Yes | Google Gemini API key; the app stops at startup without it |
+| `RESEARCH_WORD_THRESHOLD` | No | Word count above which a question triggers research (default `1000`; use `10` for a full-flow demo) |
 | `LOG_LEVEL` | No | Console log verbosity (default `INFO`) |
 | `LANGSMITH_TRACING` | No | Set to `true` to send traces to LangSmith |
 | `LANGSMITH_API_KEY` | No | LangSmith API key, only needed when tracing is on |
