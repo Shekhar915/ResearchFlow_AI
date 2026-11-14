@@ -96,3 +96,8 @@ python -m pytest -q src/ResearchFlow/tests
 
 Questions are limited to 2000 characters (`MAX_QUESTION_CHARS` in
 `services/research_service.py`).
+
+## Troubleshooting
+
+- `[Errno 11001] getaddrinfo failed`: the app could not resolve the Gemini API host. Check your internet connection, VPN or proxy, and DNS settings, then retry.
+- `GEMINI_API_KEY` errors: make sure `.env` exists (copy `.env.example`) and contains a valid key.
